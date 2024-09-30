@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="Style.css">
+        <title>Rede Social</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="section section1">
+                <h2>Pode cre</h2>
+                <ul>
+                    <li><i class="fas fa-home"></i> Home</li>
+                    <li><i class="fas fa-compass"></i> Explore</li>
+                    <li><i class="fas fa-bell"></i> Notifications</li>
+                    <li><i class="fas fa-comment"></i> Messages</li>
+                    <li><i class="fas fa-bookmark"></i> Bookmarks</li>
+                    <li><i class="fas fa-th-list"></i> List</li>
+                    <li><i class="fas fa-user"></i> Profile</li>
+                    <button class="button-large">Tweet</button>                    
+                </ul>
+            </div>
+
+            <div class="section section2">
+                <!-- Área de Publicação semelhante ao Twitter -->
+                <form id="postForm" class="post-form">
+                    <textarea id="postText" maxlength="280" placeholder="O que está acontecendo?" required></textarea>
+                    <div class="media-options">
+                        <input type="file" id="postMedia" accept="image/*, video/*">
+                        <label for="postMedia"><i class="fas fa-image"></i> Adicionar Imagem/Video</label>
+                        <p id="charCount">0/280</p>
+                    </div>
+                    <button type="submit" class="button-large">Tweetar</button>
+                </form>
+
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const postText = document.getElementById('postText');
+                        const charCount = document.getElementById('charCount');
+                
+                        // Atualiza o contador de caracteres ao digitar
+                        postText.addEventListener('input', () => {
+                            const currentLength = postText.value.length;
+                            charCount.textContent = `${currentLength}/280`;
+                        });
+                    });
+                </script>
+            
+                <!-- Feed de Publicações -->
+                <div id="feed" class="feed">
+                    <!-- Publicações vão aparecer aqui -->
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const postForm = document.getElementById('postForm');
+                        const postText = document.getElementById('postText');
+                        const feed = document.getElementById('feed');
+                        const charCount = document.getElementById('charCount');
+                    
+                        // Atualiza o contador de caracteres ao digitar
+                        postText.addEventListener('input', () => {
+                            const currentLength = postText.value.length;
+                            charCount.textContent = `${currentLength}/280`;
+                        });
+                    
+                        // Manipula o envio do formulário e exibe a publicação no feed
+                        postForm.addEventListener('submit', (e) => {
+                            e.preventDefault(); // Previne o comportamento padrão do formulário
+                    
+                            const text = postText.value.trim(); // Remove espaços em branco
+                    
+                            // Verifica se o texto não está vazio
+                            if (text === '') {
+                                alert('Por favor, insira algum texto para tweetar.');
+                                return;
+                            }
+                    
+                            // Cria um novo elemento de postagem
+                            const post = document.createElement('div');
+                            post.classList.add('post');
+                    
+                            const postTextElement = document.createElement('p');
+                            postTextElement.classList.add('post-text');
+                            postTextElement.textContent = text;
+                            
+                            // Adiciona o texto ao post
+                            post.appendChild(postTextElement);
+                    
+                            // Adiciona a nova postagem ao feed
+                            feed.prepend(post); // Adiciona no topo do feed
+                    
+                            // Limpa o formulário após enviar
+                            postForm.reset();
+                            charCount.textContent = '0/280'; // Reseta o contador de caracteres
+                        });
+                    });
+                    </script>
+                    
+
+            </div>
+            
+
+            <div class="section section3">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search Tweeter">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+
+        </div>        
+    </body>
+</html>
